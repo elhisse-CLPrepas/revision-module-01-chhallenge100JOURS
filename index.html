@@ -1,0 +1,764 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Révision Module 01 - LN-IA</title>
+  <meta name="description" content="Mini-application publique de révision du Module 01 avant le quiz du Challenge 100 jours LN-IA.">
+  <style>
+    :root {
+      --night: #071326;
+      --ink: #132238;
+      --blue: #123a63;
+      --gold: #c9a227;
+      --gold-soft: #f4e6ae;
+      --paper: #ffffff;
+      --mist: #f3f6fa;
+      --line: #dbe3ee;
+      --ok: #147a5b;
+      --warn: #9a5f00;
+      --shadow: 0 18px 45px rgba(7, 19, 38, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--mist);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar-inner {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      color: var(--night);
+      min-width: 220px;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 8px;
+      object-fit: contain;
+      background: var(--night);
+      border: 1px solid rgba(201, 162, 39, 0.35);
+      padding: 4px;
+    }
+
+    nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue);
+      padding: 8px 10px;
+      border-radius: 6px;
+    }
+
+    nav a:hover, nav a:focus-visible {
+      background: #e8eef7;
+      outline: none;
+    }
+
+    .hero {
+      color: #fff;
+      background:
+        linear-gradient(rgba(7, 19, 38, 0.88), rgba(7, 19, 38, 0.78)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 700'%3E%3Crect width='1400' height='700' fill='%23071326'/%3E%3Cpath d='M0 520 C240 430 390 620 640 510 C870 410 1010 190 1400 260 L1400 700 L0 700 Z' fill='%23123a63'/%3E%3Cpath d='M820 70 L1310 70 L1310 96 L820 96 ZM920 132 L1320 132 L1320 146 L920 146 ZM760 188 L1280 188 L1280 202 L760 202 Z' fill='%23c9a227' opacity='0.52'/%3E%3Ccircle cx='210' cy='170' r='78' fill='%23ffffff' opacity='0.08'/%3E%3C/svg%3E");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-inner {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      min-height: 520px;
+      display: grid;
+      align-items: center;
+      padding: 72px 0 88px;
+    }
+
+    .hero-logo {
+      width: 92px;
+      height: 92px;
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(244, 230, 174, 0.75);
+      border-radius: 12px;
+      padding: 8px;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      border: 1px solid rgba(244, 230, 174, 0.75);
+      color: var(--gold-soft);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 18px 0 14px;
+      font-size: clamp(38px, 8vw, 76px);
+      line-height: 0.96;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 780px;
+      margin: 0 0 26px;
+      color: #edf3fb;
+      font-size: 20px;
+    }
+
+    .hero-actions, .action-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .button {
+      border: 0;
+      border-radius: 7px;
+      padding: 12px 16px;
+      font-weight: 800;
+      cursor: pointer;
+      min-height: 46px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .button.primary { background: var(--gold); color: var(--night); }
+    .button.secondary { background: rgba(255, 255, 255, 0.12); color: #fff; border: 1px solid rgba(255, 255, 255, 0.35); }
+    .button.light { background: #fff; color: var(--night); border: 1px solid var(--line); }
+
+    main {
+      width: min(1120px, calc(100% - 32px));
+      margin: -42px auto 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    section { margin: 34px 0; scroll-margin-top: 90px; }
+
+    .panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    h2 { color: var(--night); font-size: 30px; line-height: 1.15; margin: 0 0 12px; letter-spacing: 0; }
+    h3 { color: var(--blue); margin: 0 0 10px; font-size: 22px; letter-spacing: 0; }
+    .lead { font-size: 18px; max-width: 820px; }
+
+    .formula {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .formula span {
+      background: #eef3f9;
+      border-left: 4px solid var(--gold);
+      border-radius: 6px;
+      padding: 12px;
+      font-weight: 800;
+      color: var(--night);
+    }
+
+    .sessions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .session {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .session .tag { color: var(--warn); font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0; }
+    ul { padding-left: 20px; }
+    li + li { margin-top: 6px; }
+
+    .reflection, .action {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 6px;
+    }
+
+    .reflection { background: #f7f2df; border: 1px solid #ead78d; }
+    .action { background: #edf7f3; border: 1px solid #b9dfd0; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--blue);
+      padding: 8px 12px;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .checklist, .selfcheck {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .check-row, .self-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .check-row label {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-weight: 700;
+    }
+
+    input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      accent-color: var(--gold);
+      flex: 0 0 auto;
+    }
+
+    input[type="email"], textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      font: inherit;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .identity-panel {
+      border-left: 5px solid var(--gold);
+    }
+
+    .identity-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: end;
+      margin-top: 16px;
+    }
+
+    .identity-grid label {
+      display: grid;
+      gap: 8px;
+      font-weight: 800;
+    }
+
+    .identity-confirmed {
+      color: var(--ok);
+    }
+
+    .locked-note {
+      margin-top: 14px;
+      color: var(--warn);
+      font-weight: 800;
+    }
+
+    textarea { min-height: 190px; resize: vertical; }
+
+    .choice-group { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+
+    .choice {
+      border: 1px solid var(--line);
+      background: #f8fafc;
+      color: var(--ink);
+      border-radius: 7px;
+      padding: 9px 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .choice[aria-pressed="true"] { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    .status {
+      min-height: 52px;
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 8px;
+      background: #eef3f9;
+      border: 1px solid var(--line);
+      font-weight: 800;
+    }
+
+    .privacy { border-left: 5px solid var(--gold); }
+
+    .ready-box {
+      background: var(--night);
+      color: #fff;
+      border-radius: 8px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .ready-box h2 { color: #fff; }
+    .ready-box p { color: #edf3fb; }
+    .ready-box label { display: block; margin: 16px 0 8px; color: #edf3fb; font-weight: 800; }
+    .ready-box textarea, .ready-box input { background: #f9fbff; }
+    .note { font-size: 14px; color: #d8e3f2; margin-top: 10px; }
+
+    footer {
+      margin-top: 46px;
+      padding: 34px 16px;
+      background: var(--night);
+      color: #d8e3f2;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      display: grid;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .footer-title {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .footer-trainer {
+      color: var(--gold-soft);
+      font-weight: 800;
+    }
+
+    .footer-motto {
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .footer-small {
+      color: #b9c8da;
+      font-size: 13px;
+    }
+
+    @media (max-width: 780px) {
+      .topbar-inner { align-items: flex-start; flex-direction: column; padding: 12px 0; }
+      nav { justify-content: flex-start; }
+      .hero-inner { min-height: 500px; padding-top: 48px; }
+      .hero p { font-size: 18px; }
+      main { margin-top: -28px; }
+      .panel, .ready-box { padding: 20px; }
+      .formula, .sessions { grid-template-columns: 1fr; }
+      .check-row, .self-row { align-items: flex-start; flex-direction: column; }
+      .choice-group { justify-content: flex-start; width: 100%; }
+      .choice { flex: 1 1 120px; }
+      .brand { min-width: 0; }
+      .identity-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" aria-label="Navigation principale">
+    <div class="topbar-inner">
+      <div class="brand"><img class="brand-logo" src="assets/img/logo-LN-IA.png" alt="Logo LN-IA"><span>Atelier LN-IA</span></div>
+      <nav>
+        <a href="#revision">Révision</a>
+        <a href="#synthese">Synthèse</a>
+        <a href="#checklist">Checklist</a>
+        <a href="#auto">Auto-évaluation</a>
+        <a href="#identification">ID-mail</a>
+        <a href="#retour">Retour mail</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <img class="hero-logo" src="assets/img/logo-LN-IA.png" alt="Logo LN-IA">
+        <span class="eyebrow">Challenge 100 jours - Module 01</span>
+        <h1>Révision avant <STRONG>QUIZ</STRONG></h1>
+        <p>Une mini-application pour revoir le cadrage, les preuves, le rôle de l'IA et l'engagement candidat avant le quiz du Module 01.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#revision">Commencer la révision</a>
+          <a class="button secondary" href="#checklist">Vérifier ma préparation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="panel identity-panel" id="identification">
+      <h2>Identification candidat</h2>
+      <p class="lead">Cette r&eacute;vision est r&eacute;serv&eacute;e aux candidats inscrits. Pr&eacute;cise ton ID-mail d'inscription avant de commencer. La liste officielle reste dans le fichier Excel priv&eacute; de l'atelier et n'est pas int&eacute;gr&eacute;e &agrave; cette page publique.</p>
+      <div class="identity-grid">
+        <label for="candidateEmail">ID-mail candidat
+          <input id="candidateEmail" type="email" placeholder="votre.email@exemple.com" autocomplete="email" required>
+        </label>
+        <button class="button primary" type="button" id="confirmEmail">Confirmer l'ID-mail</button>
+      </div>
+      <div class="status" id="candidateStatus">Saisis l'e-mail utilis&eacute; pour ton inscription afin de personnaliser le r&eacute;capitulatif de r&eacute;vision.</div>
+      <p class="locked-note">Important : cette page GitHub Pages ne v&eacute;rifie pas automatiquement le fichier Excel priv&eacute;. La v&eacute;rification finale de l'ID-mail reste faite par l'atelier.</p>
+    </section>
+
+    <section class="panel" id="intro">
+      <h2>Objectif de cette page</h2>
+      <p class="lead">Cette page aide à réviser. Elle ne remplace pas le quiz ni la validation humaine. Le quiz vérifie la compréhension du Module 01, pas la perfection.</p>
+      <div class="formula" aria-label="Formule centrale LN-IA">
+        <span>L'IA propose.</span>
+        <span>L'humain contrôle.</span>
+        <span>L'atelier organise.</span>
+        <span>Le livrable prouve.</span>
+      </div>
+    </section>
+
+    <section id="revision">
+      <h2>Révision par séance</h2>
+      <div class="sessions">
+        <article class="session">
+          <div class="tag">Séance 01</div>
+          <h3>Lancement et cadrage</h3>
+          <ul>
+            <li>Comprendre l'esprit du Challenge 100 jours.</li>
+            <li>Apprendre en produisant progressivement.</li>
+            <li>Classer les livrables comme preuves.</li>
+            <li>Commencer même avec une première version imparfaite.</li>
+          </ul>
+          <div class="reflection"><strong>Question :</strong> pourquoi un livrable classé prouve-t-il mieux la progression qu'une simple intention ?</div>
+          <div class="action"><strong>Mini-action :</strong> reformule en une phrase ce que signifie « apprendre en produisant ».</div>
+        </article>
+
+        <article class="session">
+          <div class="tag">Séance 02</div>
+          <h3>Objectif personnel</h3>
+          <ul>
+            <li>Clarifier son objectif personnel.</li>
+            <li>Décrire son point de départ.</li>
+            <li>Identifier ses premiers livrables.</li>
+            <li>Utiliser l'IA pour améliorer, puis relire et corriger.</li>
+          </ul>
+          <div class="reflection"><strong>Question :</strong> comment un objectif clair aide-t-il l'IA à mieux accompagner ton travail ?</div>
+          <div class="action"><strong>Mini-action :</strong> cite ton point de départ, ton objectif et un premier livrable attendu.</div>
+        </article>
+
+        <article class="session">
+          <div class="tag">Séance 03</div>
+          <h3>IA et production moderne</h3>
+          <ul>
+            <li>Situer l'IA comme assistant de production.</li>
+            <li>Comprendre que produire vite ne suffit pas.</li>
+            <li>Produire juste, utile, classé et vérifiable.</li>
+            <li>Garder la décision finale humaine.</li>
+            <li>Conserver une preuve du prompt utilisé.</li>
+          </ul>
+          <div class="reflection"><strong>Question :</strong> quelle décision ne dois-tu jamais déléguer entièrement à l'IA ?</div>
+          <div class="action"><strong>Mini-action :</strong> prépare un exemple de prompt et une preuve simple de son utilisation.</div>
+        </article>
+
+        <article class="session">
+          <div class="tag">Séance 04</div>
+          <h3>Engagement candidat</h3>
+          <ul>
+            <li>Formaliser son engagement dans le parcours.</li>
+            <li>Produire une phrase d'engagement personnel.</li>
+            <li>Vérifier et classer ses preuves.</li>
+            <li>Ne pas exposer téléphone, e-mail ou données personnelles.</li>
+          </ul>
+          <div class="reflection"><strong>Question :</strong> que doit montrer une phrase d'engagement personnel responsable ?</div>
+          <div class="action"><strong>Mini-action :</strong> écris une phrase qui relie production, vérification, portfolio et contrôle humain.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="synthese">
+      <h2>Synthèse essentielle</h2>
+      <p>Le Module 01 installe une méthode : avancer par livrables, vérifier avec discernement, garder les preuves et construire un portfolio lisible. L'IA aide à formuler, structurer et améliorer, mais le candidat reste responsable de ses choix et de ses publications.</p>
+      <div class="chips" aria-label="Notions essentielles">
+        <span class="chip">Challenge 100 jours</span>
+        <span class="chip">Apprendre en produisant</span>
+        <span class="chip">Livrables</span>
+        <span class="chip">Preuves</span>
+        <span class="chip">Portfolio</span>
+        <span class="chip">Objectif personnel</span>
+        <span class="chip">IA comme assistant</span>
+        <span class="chip">Contrôle humain</span>
+        <span class="chip">Engagement candidat</span>
+        <span class="chip">Données personnelles</span>
+      </div>
+    </section>
+
+    <section class="panel" id="checklist">
+      <h2>Mini-checklist avant quiz</h2>
+      <p>Coche uniquement pour toi. Rien n'est envoyé automatiquement, rien n'est collecté en arrière-plan.</p>
+      <div class="checklist">
+        <div class="check-row"><label><input type="checkbox" data-label="Je comprends le principe du Challenge 100 jours.">Je comprends le principe du Challenge 100 jours.</label></div>
+        <div class="check-row"><label><input type="checkbox" data-label="Je sais pourquoi les livrables doivent être classés.">Je sais pourquoi les livrables doivent être classés.</label></div>
+        <div class="check-row"><label><input type="checkbox" data-label="Je connais le rôle de l'IA dans l'atelier.">Je connais le rôle de l'IA dans l'atelier.</label></div>
+        <div class="check-row"><label><input type="checkbox" data-label="Je sais que l'humain garde la décision finale.">Je sais que l'humain garde la décision finale.</label></div>
+        <div class="check-row"><label><input type="checkbox" data-label="Je peux expliquer l'utilité du portfolio.">Je peux expliquer l'utilité du portfolio.</label></div>
+        <div class="check-row"><label><input type="checkbox" data-label="Je sais quelles données personnelles ne pas publier.">Je sais quelles données personnelles ne pas publier.</label></div>
+        <div class="check-row"><label><input type="checkbox" data-label="J'ai relu les 4 séances du Module 01.">J'ai relu les 4 séances du Module 01.</label></div>
+      </div>
+      <div class="status" id="checkStatus">0 sur 7 points de préparation cochés.</div>
+    </section>
+
+    <section class="panel" id="auto">
+      <h2>Auto-évaluation rapide</h2>
+      <p>Réponds avec sincérité. Si plusieurs réponses sont « Pas encore », relis les sections correspondantes avant le quiz.</p>
+      <div class="selfcheck">
+        <div class="self-row" data-self-row data-question="Je peux expliquer la formule LN-IA."><strong>Je peux expliquer la formule LN-IA.</strong><div class="choice-group"><button class="choice" type="button" data-value="Oui">Oui</button><button class="choice" type="button" data-value="Pas encore">Pas encore</button></div></div>
+        <div class="self-row" data-self-row data-question="Je sais nommer le premier livrable candidat."><strong>Je sais nommer le premier livrable candidat.</strong><div class="choice-group"><button class="choice" type="button" data-value="Oui">Oui</button><button class="choice" type="button" data-value="Pas encore">Pas encore</button></div></div>
+        <div class="self-row" data-self-row data-question="Je comprends pourquoi un objectif clair aide l'IA."><strong>Je comprends pourquoi un objectif clair aide l'IA.</strong><div class="choice-group"><button class="choice" type="button" data-value="Oui">Oui</button><button class="choice" type="button" data-value="Pas encore">Pas encore</button></div></div>
+        <div class="self-row" data-self-row data-question="Je sais pourquoi l'IA ne remplace pas le contrôle humain."><strong>Je sais pourquoi l'IA ne remplace pas le contrôle humain.</strong><div class="choice-group"><button class="choice" type="button" data-value="Oui">Oui</button><button class="choice" type="button" data-value="Pas encore">Pas encore</button></div></div>
+        <div class="self-row" data-self-row data-question="Je sais ce qu'il faut éviter de publier dans un fichier candidat."><strong>Je sais ce qu'il faut éviter de publier dans un fichier candidat.</strong><div class="choice-group"><button class="choice" type="button" data-value="Oui">Oui</button><button class="choice" type="button" data-value="Pas encore">Pas encore</button></div></div>
+      </div>
+      <div class="status" id="selfStatus">Choisis une réponse pour chaque affirmation.</div>
+    </section>
+
+    <section class="panel privacy" id="prudence">
+      <h2>Prudence avant publication</h2>
+      <p>Ne publie pas de téléphone, e-mail, token, mot de passe, résultat individuel ou information personnelle dans un espace public. Utilise des exemples fictifs quand un document est partagé publiquement.</p>
+    </section>
+
+    <section class="ready-box" id="retour">
+      <h2>Retour de révision</h2>
+      <p>Quand la révision est terminée, la mini-application prépare un récapitulatif local des actions effectuées. L'envoi se fait uniquement si tu choisis d'ouvrir ton application de messagerie.</p>
+      <p>Avant de passer le Quiz, prends deux minutes pour vérifier : mon objectif est clair, je comprends le rôle de l'IA, je garde le contrôle humain, et je sais classer mes preuves dans mon portfolio.</p>
+
+      <label for="returnEmail">Adresse e-mail de retour de l'atelier</label>
+      <input id="returnEmail" type="email" placeholder="exemple : atelier@example.com" autocomplete="off">
+      <p class="note">Aucune adresse n'est enregistrée dans cette page. Si le champ reste vide, le mail sera préparé sans destinataire.</p>
+
+      <label for="actionSummary">Récapitulatif local des actions</label>
+      <textarea id="actionSummary" readonly></textarea>
+
+      <div class="action-line">
+        <button class="button primary" type="button" id="readyButton">Je suis prêt pour le quiz</button>
+        <button class="button light" type="button" id="refreshSummary">Actualiser le récapitulatif</button>
+        <a class="button light" id="mailLink" href="mailto:?subject=Revision%20Module%2001%20effectuee">Préparer le mail de retour</a>
+      </div>
+      <div class="status" id="readyMessage" hidden></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-title">Challenge 100 jours - Apprendre l'IA par la pratique</div>
+      <div class="footer-trainer">Formateur : Prof. Abderrahman El Hisse</div>
+      <div class="footer-motto">Prenez une longueur d'avance.</div>
+      <div>Atelier LN-IA - Module 01. Mini-application publique de revision, sans envoi automatique de donnees.</div>
+      <div class="footer-small">Droits proteges - Challenge 100 jours LN-IA. Toute diffusion ou adaptation doit respecter le cadre pedagogique de l'atelier.</div>
+    </div>
+  </footer>
+
+  <script>
+    const candidateEmail = document.getElementById('candidateEmail');
+    const confirmEmail = document.getElementById('confirmEmail');
+    const candidateStatus = document.getElementById('candidateStatus');
+    const checklist = document.querySelectorAll('.checklist input[type="checkbox"]');
+    const checkStatus = document.getElementById('checkStatus');
+    const selfRows = document.querySelectorAll('[data-self-row]');
+    const selfStatus = document.getElementById('selfStatus');
+    const readyButton = document.getElementById('readyButton');
+    const readyMessage = document.getElementById('readyMessage');
+    const refreshSummary = document.getElementById('refreshSummary');
+    const actionSummary = document.getElementById('actionSummary');
+    const mailLink = document.getElementById('mailLink');
+    const returnEmail = document.getElementById('returnEmail');
+    let readyClicked = false;
+    let candidateIdMail = '';
+
+    function isValidEmail(value) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    function updateCandidateStatus() {
+      const value = candidateEmail.value.trim();
+      if (!value) {
+        candidateIdMail = '';
+        candidateStatus.textContent = "Saisis l'e-mail utilise pour ton inscription afin de personnaliser le recapitulatif de revision.";
+        candidateStatus.classList.remove('identity-confirmed');
+        updateSummary();
+        return;
+      }
+      if (!isValidEmail(value)) {
+        candidateStatus.textContent = "Format d'e-mail a verifier avant de poursuivre.";
+        candidateStatus.classList.remove('identity-confirmed');
+        return;
+      }
+      candidateIdMail = value;
+      candidateStatus.textContent = "ID-mail confirme localement : " + candidateIdMail + ". La verification officielle reste faite par l'atelier avec la liste privee.";
+      candidateStatus.classList.add('identity-confirmed');
+      updateSummary();
+    }
+
+    function updateChecklist() {
+      const total = checklist.length;
+      const done = Array.from(checklist).filter((item) => item.checked).length;
+      checkStatus.textContent = done + ' sur ' + total + ' points de préparation cochés.';
+      updateSummary();
+    }
+
+    function updateSelfStatus() {
+      const answers = Array.from(selfRows).map((row) => row.dataset.answer || '');
+      const yes = answers.filter((answer) => answer === 'Oui').length;
+      const notYet = answers.filter((answer) => answer === 'Pas encore').length;
+      if (yes + notYet < selfRows.length) {
+        selfStatus.textContent = 'Choisis une réponse pour chaque affirmation.';
+      } else if (notYet >= 2) {
+        selfStatus.textContent = 'Plusieurs points demandent encore une révision. Relis les sections correspondantes avant de passer le quiz.';
+      } else {
+        selfStatus.textContent = 'Tu as surtout répondu Oui. Tu peux passer au quiz avec confiance quand le lien officiel est partagé.';
+      }
+      updateSummary();
+    }
+
+    function buildSummary() {
+      const now = new Date().toLocaleString('fr-FR');
+      const checkedItems = Array.from(checklist)
+        .filter((item) => item.checked)
+        .map((item) => '- ' + item.dataset.label);
+      const uncheckedItems = Array.from(checklist)
+        .filter((item) => !item.checked)
+        .map((item) => '- ' + item.dataset.label);
+      const answers = Array.from(selfRows).map((row) => '- ' + row.dataset.question + ' : ' + (row.dataset.answer || 'non renseigné'));
+      const checkedCount = checkedItems.length;
+      const yesCount = Array.from(selfRows).filter((row) => row.dataset.answer === 'Oui').length;
+      const notYetCount = Array.from(selfRows).filter((row) => row.dataset.answer === 'Pas encore').length;
+
+      return [
+        'Retour de révision - Module 01 LN-IA',
+        'Date : ' + now,
+        '',
+        'État général :',
+        '- Checklist : ' + checkedCount + ' / ' + checklist.length + ' points cochés',
+        '- Auto-évaluation : ' + yesCount + ' Oui, ' + notYetCount + ' Pas encore',
+        '- ID-mail candidat : ' + (candidateIdMail || 'non renseigne'),
+        '- Bouton "Je suis prêt pour le quiz" : ' + (readyClicked ? 'activé' : 'non activé'),
+        '',
+        'Actions cochées :',
+        checkedItems.length ? checkedItems.join('\n') : '- Aucune action cochée pour le moment.',
+        '',
+        'Actions restantes :',
+        uncheckedItems.length ? uncheckedItems.join('\n') : '- Aucun point restant dans la checklist.',
+        '',
+        'Auto-évaluation :',
+        answers.join('\n'),
+        '',
+        'Message candidat :',
+        'La révision du Module 01 est effectuée. Je passe au quiz quand le lien officiel est partagé par l\'atelier.',
+        '',
+        'Rappel : cette page prépare un mail local. Elle ne valide pas automatiquement le module.'
+      ].join('\n');
+    }
+
+    function updateMailLink(summary) {
+      const recipient = returnEmail.value.trim();
+      const subject = encodeURIComponent('Révision Module 01 effectuée');
+      const body = encodeURIComponent(summary);
+      mailLink.href = 'mailto:' + recipient + '?subject=' + subject + '&body=' + body;
+    }
+
+    function updateSummary() {
+      const summary = buildSummary();
+      actionSummary.value = summary;
+      updateMailLink(summary);
+    }
+
+    confirmEmail.addEventListener('click', updateCandidateStatus);
+    candidateEmail.addEventListener('input', updateCandidateStatus);
+    checklist.forEach((item) => item.addEventListener('change', updateChecklist));
+    returnEmail.addEventListener('input', updateSummary);
+    refreshSummary.addEventListener('click', updateSummary);
+
+    selfRows.forEach((row) => {
+      row.querySelectorAll('.choice').forEach((button) => {
+        button.setAttribute('aria-pressed', 'false');
+        button.addEventListener('click', () => {
+          row.dataset.answer = button.dataset.value;
+          row.querySelectorAll('.choice').forEach((choice) => choice.setAttribute('aria-pressed', 'false'));
+          button.setAttribute('aria-pressed', 'true');
+          updateSelfStatus();
+        });
+      });
+    });
+
+    readyButton.addEventListener('click', () => {
+      readyClicked = true;
+      readyMessage.hidden = false;
+      if (!candidateIdMail) {
+        readyMessage.hidden = false;
+        readyMessage.textContent = "Avant le quiz, precise ton ID-mail candidat en haut de la page. Le recapitulatif peut ensuite etre prepare pour l'atelier.";
+        document.getElementById('identification').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+      readyMessage.textContent = "Bonne revision. Le recapitulatif est pret avec ton ID-mail : tu peux preparer le mail de retour, puis passer au quiz quand le lien officiel est partage par l'atelier.";
+      updateSummary();
+    });
+
+    updateChecklist();
+  </script>
+</body>
+</html>

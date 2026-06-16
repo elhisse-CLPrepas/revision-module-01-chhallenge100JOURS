@@ -1,0 +1,22 @@
+﻿# Sauvegardes locales de travail
+*.backup-*.html
+*.backup-*.md
+*.bak
+
+# Donnees privees / exports / secrets
+prive/
+*.xlsx
+*.csv
+*.db
+.env
+.env.local
+tokens.json
+credentials.json
+lead-data/
+exports-prives/
+
+# Fichiers systeme et temporaires
+.DS_Store
+Thumbs.db
+*.tmp
+*.log

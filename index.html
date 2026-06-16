@@ -43,7 +43,7 @@
     }
 
     .topbar-inner {
-      width: min(1120px, calc(100% - 32px));
+      width: min(1240px, calc(100% - 32px));
       margin: 0 auto;
       min-height: 70px;
       display: flex;
@@ -102,12 +102,12 @@
     }
 
     .hero-inner {
-      width: min(1120px, calc(100% - 32px));
+      width: min(1240px, calc(100% - 32px));
       margin: 0 auto;
-      min-height: 520px;
+      min-height: 620px;
       display: grid;
       align-items: center;
-      padding: 72px 0 88px;
+      padding: 92px 0 112px;
     }
 
     .hero-logo {
@@ -135,7 +135,7 @@
     }
 
     h1 {
-      max-width: 900px;
+      max-width: 980px;
       margin: 18px 0 14px;
       font-size: clamp(38px, 8vw, 76px);
       line-height: 0.96;
@@ -143,7 +143,7 @@
     }
 
     .hero p {
-      max-width: 780px;
+      max-width: 860px;
       margin: 0 0 26px;
       color: #edf3fb;
       font-size: 20px;
@@ -175,25 +175,79 @@
     .button.light { background: #fff; color: var(--night); border: 1px solid var(--line); }
 
     main {
-      width: min(1120px, calc(100% - 32px));
-      margin: -42px auto 0;
+      width: min(1240px, calc(100% - 32px));
+      margin: -56px auto 0;
       position: relative;
       z-index: 2;
     }
 
-    section { margin: 34px 0; scroll-margin-top: 90px; }
+    section { margin: 42px 0; scroll-margin-top: 98px; }
 
     .panel {
       background: var(--paper);
       border: 1px solid var(--line);
       border-radius: 8px;
       box-shadow: var(--shadow);
-      padding: 28px;
+      padding: 34px;
     }
 
     h2 { color: var(--night); font-size: 30px; line-height: 1.15; margin: 0 0 12px; letter-spacing: 0; }
     h3 { color: var(--blue); margin: 0 0 10px; font-size: 22px; letter-spacing: 0; }
-    .lead { font-size: 18px; max-width: 820px; }
+    .lead { font-size: 18px; max-width: 900px; }
+
+    .prep-dashboard {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .metric {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      min-height: 150px;
+      display: grid;
+      align-content: space-between;
+      gap: 14px;
+    }
+
+    .metric-label {
+      color: var(--blue);
+      font-weight: 800;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .metric-value {
+      color: var(--night);
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .meter {
+      height: 10px;
+      border-radius: 999px;
+      background: #e6edf6;
+      overflow: hidden;
+    }
+
+    .meter span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--ok));
+      transition: width 0.25s ease;
+    }
+
+    .metric-note {
+      margin: 0;
+      color: #53657d;
+      font-size: 14px;
+    }
 
     .formula {
       display: grid;
@@ -214,15 +268,15 @@
     .sessions {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 18px;
+      gap: 22px;
+      margin-top: 22px;
     }
 
     .session {
       background: #fff;
       border: 1px solid var(--line);
       border-radius: 8px;
-      padding: 20px;
+      padding: 24px;
     }
 
     .session .tag { color: var(--warn); font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0; }
@@ -231,7 +285,7 @@
 
     .reflection, .action {
       margin-top: 12px;
-      padding: 12px;
+      padding: 16px;
       border-radius: 6px;
     }
 
@@ -257,8 +311,8 @@
 
     .checklist, .selfcheck {
       display: grid;
-      gap: 12px;
-      margin-top: 18px;
+      gap: 14px;
+      margin-top: 22px;
     }
 
     .check-row, .self-row {
@@ -268,7 +322,7 @@
       justify-content: space-between;
       border: 1px solid var(--line);
       border-radius: 8px;
-      padding: 12px;
+      padding: 16px;
       background: #fff;
     }
 
@@ -324,7 +378,7 @@
       font-weight: 800;
     }
 
-    textarea { min-height: 190px; resize: vertical; }
+    textarea { min-height: 230px; resize: vertical; }
 
     .choice-group { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 
@@ -356,7 +410,7 @@
       background: var(--night);
       color: #fff;
       border-radius: 8px;
-      padding: 28px;
+      padding: 36px;
       box-shadow: var(--shadow);
     }
 
@@ -375,7 +429,7 @@
     }
 
     .footer-inner {
-      width: min(1120px, calc(100% - 32px));
+      width: min(1240px, calc(100% - 32px));
       margin: 0 auto;
       display: grid;
       gap: 10px;
@@ -406,11 +460,11 @@
     @media (max-width: 780px) {
       .topbar-inner { align-items: flex-start; flex-direction: column; padding: 12px 0; }
       nav { justify-content: flex-start; }
-      .hero-inner { min-height: 500px; padding-top: 48px; }
+      .hero-inner { min-height: 540px; padding: 56px 0 84px; }
       .hero p { font-size: 18px; }
-      main { margin-top: -28px; }
+      main { margin-top: -34px; }
       .panel, .ready-box { padding: 20px; }
-      .formula, .sessions { grid-template-columns: 1fr; }
+      .formula, .sessions, .prep-dashboard { grid-template-columns: 1fr; }
       .check-row, .self-row { align-items: flex-start; flex-direction: column; }
       .choice-group { justify-content: flex-start; width: 100%; }
       .choice { flex: 1 1 120px; }
@@ -471,6 +525,32 @@
         <span>L'humain contrôle.</span>
         <span>L'atelier organise.</span>
         <span>Le livrable prouve.</span>
+      </div>
+      <div class="prep-dashboard" aria-label="Progression de préparation">
+        <div class="metric">
+          <div>
+            <div class="metric-label">Checklist</div>
+            <div class="metric-value" id="metricChecklist">0%</div>
+          </div>
+          <div class="meter" aria-hidden="true"><span id="meterChecklist"></span></div>
+          <p class="metric-note" id="metricChecklistNote">Aucun point coché pour le moment.</p>
+        </div>
+        <div class="metric">
+          <div>
+            <div class="metric-label">Auto-évaluation</div>
+            <div class="metric-value" id="metricSelf">0/5</div>
+          </div>
+          <div class="meter" aria-hidden="true"><span id="meterSelf"></span></div>
+          <p class="metric-note" id="metricSelfNote">Réponds aux affirmations pour mesurer ta confiance.</p>
+        </div>
+        <div class="metric">
+          <div>
+            <div class="metric-label">ID-mail</div>
+            <div class="metric-value" id="metricIdentity">À faire</div>
+          </div>
+          <div class="meter" aria-hidden="true"><span id="meterIdentity"></span></div>
+          <p class="metric-note" id="metricIdentityNote">Confirmation locale, sans vérification automatique.</p>
+        </div>
       </div>
     </section>
 
@@ -597,6 +677,7 @@
       <div class="action-line">
         <button class="button primary" type="button" id="readyButton">Je suis prêt pour le quiz</button>
         <button class="button light" type="button" id="refreshSummary">Actualiser le récapitulatif</button>
+        <button class="button light" type="button" id="copySummary">Copier le récapitulatif</button>
         <a class="button light" id="mailLink" href="mailto:?subject=Revision%20Module%2001%20effectuee">Préparer le mail de retour</a>
       </div>
       <div class="status" id="readyMessage" hidden></div>
@@ -627,6 +708,16 @@
     const actionSummary = document.getElementById('actionSummary');
     const mailLink = document.getElementById('mailLink');
     const returnEmail = document.getElementById('returnEmail');
+    const copySummary = document.getElementById('copySummary');
+    const metricChecklist = document.getElementById('metricChecklist');
+    const metricChecklistNote = document.getElementById('metricChecklistNote');
+    const meterChecklist = document.getElementById('meterChecklist');
+    const metricSelf = document.getElementById('metricSelf');
+    const metricSelfNote = document.getElementById('metricSelfNote');
+    const meterSelf = document.getElementById('meterSelf');
+    const metricIdentity = document.getElementById('metricIdentity');
+    const metricIdentityNote = document.getElementById('metricIdentityNote');
+    const meterIdentity = document.getElementById('meterIdentity');
     let readyClicked = false;
     let candidateIdMail = '';
 
@@ -640,17 +731,20 @@
         candidateIdMail = '';
         candidateStatus.textContent = "Saisis l'e-mail utilise pour ton inscription afin de personnaliser le recapitulatif de revision.";
         candidateStatus.classList.remove('identity-confirmed');
+        updateProgress();
         updateSummary();
         return;
       }
       if (!isValidEmail(value)) {
         candidateStatus.textContent = "Format d'e-mail a verifier avant de poursuivre.";
         candidateStatus.classList.remove('identity-confirmed');
+        updateProgress();
         return;
       }
       candidateIdMail = value;
       candidateStatus.textContent = "ID-mail confirme localement : " + candidateIdMail + ". La verification officielle reste faite par l'atelier avec la liste privee.";
       candidateStatus.classList.add('identity-confirmed');
+      updateProgress();
       updateSummary();
     }
 
@@ -658,6 +752,7 @@
       const total = checklist.length;
       const done = Array.from(checklist).filter((item) => item.checked).length;
       checkStatus.textContent = done + ' sur ' + total + ' points de préparation cochés.';
+      updateProgress();
       updateSummary();
     }
 
@@ -672,7 +767,29 @@
       } else {
         selfStatus.textContent = 'Tu as surtout répondu Oui. Tu peux passer au quiz avec confiance quand le lien officiel est partagé.';
       }
+      updateProgress();
       updateSummary();
+    }
+
+    function updateProgress() {
+      const checkedCount = Array.from(checklist).filter((item) => item.checked).length;
+      const checklistPercent = checklist.length ? Math.round((checkedCount / checklist.length) * 100) : 0;
+      const yesCount = Array.from(selfRows).filter((row) => row.dataset.answer === 'Oui').length;
+      const answeredCount = Array.from(selfRows).filter((row) => row.dataset.answer).length;
+      const selfPercent = selfRows.length ? Math.round((yesCount / selfRows.length) * 100) : 0;
+      const identityPercent = candidateIdMail ? 100 : 0;
+
+      metricChecklist.textContent = checklistPercent + '%';
+      meterChecklist.style.width = checklistPercent + '%';
+      metricChecklistNote.textContent = checkedCount + ' / ' + checklist.length + ' points cochés.';
+
+      metricSelf.textContent = yesCount + '/' + selfRows.length;
+      meterSelf.style.width = selfPercent + '%';
+      metricSelfNote.textContent = answeredCount + ' / ' + selfRows.length + ' réponses données.';
+
+      metricIdentity.textContent = candidateIdMail ? 'OK' : 'À faire';
+      meterIdentity.style.width = identityPercent + '%';
+      metricIdentityNote.textContent = candidateIdMail ? 'ID-mail confirmé localement.' : 'Confirmation locale, sans vérification automatique.';
     }
 
     function buildSummary() {
@@ -732,6 +849,20 @@
     checklist.forEach((item) => item.addEventListener('change', updateChecklist));
     returnEmail.addEventListener('input', updateSummary);
     refreshSummary.addEventListener('click', updateSummary);
+    copySummary.addEventListener('click', async () => {
+      updateSummary();
+      try {
+        await navigator.clipboard.writeText(actionSummary.value);
+        readyMessage.hidden = false;
+        readyMessage.textContent = 'Récapitulatif copié. Tu peux le coller dans ton message de retour.';
+      } catch (error) {
+        actionSummary.focus();
+        actionSummary.select();
+        document.execCommand('copy');
+        readyMessage.hidden = false;
+        readyMessage.textContent = 'Récapitulatif sélectionné et copié si le navigateur l’autorise.';
+      }
+    });
 
     selfRows.forEach((row) => {
       row.querySelectorAll('.choice').forEach((button) => {
@@ -759,6 +890,7 @@
     });
 
     updateChecklist();
+    updateProgress();
   </script>
 </body>
 </html>

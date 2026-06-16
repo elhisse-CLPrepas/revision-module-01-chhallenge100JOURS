@@ -35,19 +35,15 @@ La collecte doit rester contrôlée par le formateur ou l'encadrant.
 
 Le dossier de suivi attendu doit rester hors de la page publique.
 
-Chemin repéré sur la machine :
+Chemin officiel de suivi retenu :
 
 ```txt
 C:\DEV\CHALLENGE-01-Juin-2026\06-SUIVI-CANDIDATS
 ```
 
-Si le dossier officiel s'appelle différemment, par exemple :
+Remarque : Windows ne distingue pas les majuscules et minuscules dans les chemins. Le nom peut donc apparaître comme `CHALLENGE-01-JUIN-2026` ou `CHALLENGE-01-Juin-2026` selon l'affichage, mais il s'agit du même dossier local.
 
-```txt
-C:\DEV\CHALLENG-JUIN-2026\suivi-candidats
-```
-
-alors utiliser ce chemin validé par l'encadrant.
+Ne pas utiliser de dossier approximatif comme `CHALLENG-JUIN-2026` ou `CHALLENGE-01-JUIN-026` si ce dossier n'existe pas réellement sur la machine.
 
 ## 4. Ce que la mini-application peut collecter
 

@@ -678,6 +678,7 @@
         <button class="button primary" type="button" id="readyButton">Je suis prêt pour le quiz</button>
         <button class="button light" type="button" id="refreshSummary">Actualiser le récapitulatif</button>
         <button class="button light" type="button" id="copySummary">Copier le récapitulatif</button>
+        <button class="button light" type="button" id="downloadCsv">Télécharger le suivi CSV</button>
         <a class="button light" id="mailLink" href="mailto:?subject=Revision%20Module%2001%20effectuee">Préparer le mail de retour</a>
       </div>
       <div class="status" id="readyMessage" hidden></div>
@@ -709,6 +710,7 @@
     const mailLink = document.getElementById('mailLink');
     const returnEmail = document.getElementById('returnEmail');
     const copySummary = document.getElementById('copySummary');
+    const downloadCsv = document.getElementById('downloadCsv');
     const metricChecklist = document.getElementById('metricChecklist');
     const metricChecklistNote = document.getElementById('metricChecklistNote');
     const meterChecklist = document.getElementById('meterChecklist');
@@ -838,6 +840,58 @@
       mailLink.href = 'mailto:' + recipient + '?subject=' + subject + '&body=' + body;
     }
 
+    function csvEscape(value) {
+      return '"' + String(value).replace(/"/g, '""') + '"';
+    }
+
+    function buildCsv() {
+      const now = new Date().toISOString();
+      const checkedCount = Array.from(checklist).filter((item) => item.checked).length;
+      const yesCount = Array.from(selfRows).filter((row) => row.dataset.answer === 'Oui').length;
+      const notYetCount = Array.from(selfRows).filter((row) => row.dataset.answer === 'Pas encore').length;
+      const headers = [
+        'date',
+        'module',
+        'email_id',
+        'checklist_total',
+        'checklist_ok',
+        'auto_oui',
+        'auto_pas_encore',
+        'pret_quiz',
+        'statut_validation',
+        'commentaire'
+      ];
+      const row = [
+        now,
+        'module-01',
+        candidateIdMail || 'non_renseigne',
+        checklist.length,
+        checkedCount,
+        yesCount,
+        notYetCount,
+        readyClicked ? 'oui' : 'non',
+        'a_verifier',
+        'Export local depuis la page de revision avant quiz'
+      ];
+      return headers.join(',') + '\n' + row.map(csvEscape).join(',');
+    }
+
+    function downloadCsvFile() {
+      updateSummary();
+      const csv = buildCsv();
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'suivi-reponses-module-01.csv';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      readyMessage.hidden = false;
+      readyMessage.textContent = 'Fichier CSV généré localement. À déposer ensuite dans le dossier privé de suivi candidats.';
+    }
+
     function updateSummary() {
       const summary = buildSummary();
       actionSummary.value = summary;
@@ -849,6 +903,7 @@
     checklist.forEach((item) => item.addEventListener('change', updateChecklist));
     returnEmail.addEventListener('input', updateSummary);
     refreshSummary.addEventListener('click', updateSummary);
+    downloadCsv.addEventListener('click', downloadCsvFile);
     copySummary.addEventListener('click', async () => {
       updateSummary();
       try {

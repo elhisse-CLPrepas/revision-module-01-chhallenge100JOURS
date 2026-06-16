@@ -24,6 +24,7 @@ Cette page sert à :
 revision-module-01-avant-quiz/
   index.html
   README.md
+  AGENT.md
   .gitignore
   assets/
     img/
@@ -50,6 +51,7 @@ La page fonctionne sans serveur et sans base de données.
 - Tableau de progression avec indicateurs visuels.
 - Récapitulatif prêt à copier.
 - Bouton de copie du récapitulatif.
+- Export CSV local pour préparer une ligne de suivi candidat.
 - Lien `mailto:` pour préparer le message de retour.
 - Rappel de confidentialité avant publication.
 
@@ -64,9 +66,23 @@ Les renforcements ajoutés sont :
 - indicateurs de progression pour la checklist, l'auto-évaluation et l'ID-mail ;
 - mise à jour automatique du récapitulatif ;
 - bouton de copie avec solution de secours si l'API presse-papiers du navigateur est limitée ;
+- bouton de téléchargement CSV pour transmettre une ligne de suivi au dossier privé ;
 - rappel clair que la page ne valide pas officiellement un candidat.
 
 Cette robustesse est pédagogique : elle aide l'utilisateur à mieux comprendre son état de préparation, sans collecter automatiquement ses données.
+
+## Agent de suivi
+
+Le fichier `AGENT.md` décrit le protocole de collecte et de suivi des réponses candidats.
+
+Il précise :
+
+- ce que l'agent peut aider à collecter ;
+- ce qui doit rester privé ;
+- comment préparer une ligne de suivi ;
+- comment utiliser l'export CSV local ;
+- pourquoi la page publique ne doit pas écrire directement dans un dossier local ;
+- comment enregistrer les retours dans un dossier privé de suivi candidats.
 
 ## Confidentialité
 
